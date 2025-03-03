@@ -1,0 +1,43 @@
+#!/bin/sh -euC
+
+FABLO="${FABLO:-./bin/fablo}"
+YQ="${YQ:-yq}"
+CONFIG_BASE="${CONFIG_TEMPLATE:-./config/fablo-config-base.yml}"
+
+erho() { echo "error: $@" >&2; }
+
+usage() { echo "usage: $0 sample-chaincode-name up|down" >&2; }
+
+command -v "$YQ" >/dev/null 2>&1 || {
+	erho "yq not found"
+	exit 1
+}
+
+while getopts h opt; do
+	case "$opt" in
+	h) usage; exit 0;;
+	esac
+done
+shift $(($OPTIND - 1))
+[ $# -eq 2 ] || { usage; exit 1; }
+cc="$1"
+action="$2"
+
+tmp_config="$(mktemp)"
+trap 'rm -f "$tmp_config"' EXIT
+
+"$YQ" "
+.chaincodes += [{
+  name: \"$cc\",
+  version: \"0.1.0\",
+  lang: \"java\",
+  channel: .channels[0].name,
+  directory: \"../$cc\"
+}]
+" "$CONFIG_BASE" | tee "$tmp_config"
+
+case "$action" in
+up)	"$FABLO" down "$tmp_config";;
+down)	"$FABLO" down "$tmp_config";;
+*)	usage; exit 1;;
+esac
