@@ -1,0 +1,3 @@
+[submodule "hypernate"]
+	path = asset-transfer-basic/hypernate
+	url = git@github.com:ftsrg/hypernate.git
