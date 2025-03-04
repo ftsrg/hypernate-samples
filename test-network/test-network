@@ -7,25 +7,43 @@ CC_DIR="${CC_DIR:-..}"
 
 erho() { echo "error: $@" >&2; }
 
-usage() { echo "usage: $0 sample-chaincode-name up|down" >&2; }
+usage() {
+	cat >&2 <<EOF
+usage:	$0 [-dv] sample-chaincode-name up|down
+	$0 [-lh]
+EOF
+}
 
 command -v "$YQ" >/dev/null 2>&1 || {
 	erho "yq not found"
 	exit 1
 }
 
-while getopts h opt; do
+debug= verbose=
+while getopts dlhv opt; do
 	case "$opt" in
+	d) debug=yes;;
 	h) usage; exit 0;;
+	l)
+		find "$CC_DIR/" -maxdepth 1 -type d -exec basename {} \; \
+		| grep -Ev '(\.\.|\.git|test-network)'
+		exit 0;;
+	v) verbose=yes;;
 	esac
 done
 shift $(($OPTIND - 1))
 [ $# -eq 2 ] || { usage; exit 1; }
 cc="$1"
 action="$2"
+[ -n "$debug" ] && verbose=yes
 
-trap 'rm -f "$tmp_config"' EXIT
 tmp_config="$(mktemp fablo-config.XXXXX)"
+[ -n "$verbose" ] && echo "temporary config file path: $tmp_config"
+if [ -n "$debug" ]; then
+	echo "debug mode: config file will not be cleaned up"
+else
+	trap 'rm -f "$tmp_config"' EXIT
+fi
 
 "$YQ" "
 .chaincodes += [{
@@ -35,10 +53,12 @@ tmp_config="$(mktemp fablo-config.XXXXX)"
   channel: .channels[0].name,
   directory: \"$CC_DIR/$cc\"
 }]
-" "$CONFIG_BASE" | tee "$tmp_config"
+" "$CONFIG_BASE" >> "$tmp_config"
+
+[ -n "$debug" ] && { cat "$tmp_config"; set -x; }
 
 case "$action" in
-up)	"$FABLO" down "$tmp_config";;
-down)	"$FABLO" down "$tmp_config";;
+up)	"$FABLO" up "$tmp_config";;
+down)	"$FABLO" prune "$tmp_config";;
 *)	usage; exit 1;;
 esac
