@@ -1,0 +1,13 @@
+[versions]
+fabric = "2.5.+"
+lombok = "8.12.2"
+spotless = "7.0.2"
+shadow = "8.3.6"
+
+[libraries]
+fabric-chaincode-shim = { module = "org.hyperledger.fabric-chaincode-java:fabric-chaincode-shim", version.ref = "fabric" }
+
+[plugins]
+spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
+lombok = { id = "io.freefair.lombok", version.ref = "lombok" }
+shadow = { id = "com.gradleup.shadow", version.ref = "shadow" }
