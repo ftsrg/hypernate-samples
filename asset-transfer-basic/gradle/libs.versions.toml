@@ -1,10 +1,11 @@
 [versions]
 fabric = "2.5.+"
-lombok = "8.12.2"
-spotless = "7.0.2"
-shadow = "8.3.6"
+foojay-resolver-convention = "0.9.0"
 junit-jupiter = "5.10.3"
 junit-platform-launcher = "1.12.0"
+lombok = "8.12.2"
+shadow = "8.3.6"
+spotless = "7.0.2"
 
 [libraries]
 fabric-chaincode-shim = { module = "org.hyperledger.fabric-chaincode-java:fabric-chaincode-shim", version.ref = "fabric" }
@@ -12,6 +13,7 @@ junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "jun
 junit-platform-launcher = { module = "org.junit.platform:junit-platform-launcher", version.ref = "junit-platform-launcher" }
 
 [plugins]
-spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
+foojay-resolver-convention = { id = "org.gradle.toolchains.foojay-resolver-convention", version.ref = "foojay-resolver-convention" }
 lombok = { id = "io.freefair.lombok", version.ref = "lombok" }
 shadow = { id = "com.gradleup.shadow", version.ref = "shadow" }
+spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
