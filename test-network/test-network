@@ -10,7 +10,7 @@ erho() { echo "error: $@" >&2; }
 usage() {
 	cat >&2 <<EOF
 usage:	$0 [-dv] sample-chaincode-name up|down
-	$0 [-lh]
+	$0 [-lhr]
 EOF
 }
 
@@ -20,14 +20,16 @@ command -v "$YQ" >/dev/null 2>&1 || {
 }
 
 debug= verbose=
-while getopts dlhv opt; do
+while getopts dlhrv opt; do
 	case "$opt" in
 	d) debug=yes;;
 	h) usage; exit 0;;
 	l)
 		find "$CC_DIR/" -maxdepth 1 -type d -exec basename {} \; \
 		| grep -Ev '(\.\.|\.git|test-network)'
-		exit 0;;
+		exit
+		;;
+	r) "$FABLO" reset; exit;;
 	v) verbose=yes;;
 	esac
 done
@@ -60,5 +62,6 @@ fi
 case "$action" in
 up)	"$FABLO" up "$tmp_config";;
 down)	"$FABLO" prune "$tmp_config";;
+reset)  "$FABLO" reset;;
 *)	usage; exit 1;;
 esac
