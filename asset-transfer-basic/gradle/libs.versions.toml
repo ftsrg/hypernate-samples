@@ -3,9 +3,13 @@ fabric = "2.5.+"
 lombok = "8.12.2"
 spotless = "7.0.2"
 shadow = "8.3.6"
+junit-jupiter = "5.10.3"
+junit-platform-launcher = "1.12.0"
 
 [libraries]
 fabric-chaincode-shim = { module = "org.hyperledger.fabric-chaincode-java:fabric-chaincode-shim", version.ref = "fabric" }
+junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit-jupiter" }
+junit-platform-launcher = { module = "org.junit.platform:junit-platform-launcher", version.ref = "junit-platform-launcher" }
 
 [plugins]
 spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
