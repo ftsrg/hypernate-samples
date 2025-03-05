@@ -3,23 +3,18 @@ package hu.bme.mit.ftsrg.hypernate.samples.assettransfer;
 
 import hu.bme.mit.ftsrg.hypernate.annotations.AttributeInfo;
 import hu.bme.mit.ftsrg.hypernate.annotations.PrimaryKey;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Data;
-import lombok.experimental.FieldDefaults;
+import lombok.*;
 import lombok.experimental.FieldNameConstants;
-import lombok.experimental.NonFinal;
+import org.hyperledger.fabric.contract.annotation.DataType;
+import org.hyperledger.fabric.contract.annotation.Property;
 
-@Data
-@Builder
+@Builder(toBuilder = true)
 @FieldNameConstants
 @PrimaryKey(@AttributeInfo(name = Asset.Fields.assetID))
-@FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
-public final class Asset {
-
-  String assetID;
-  String color;
-  int size;
-  int appraisedValue;
-  @NonFinal String owner;
-}
+@DataType
+public record Asset(
+    @Property String assetID,
+    @Property String color,
+    @Property int size,
+    @Property int appraisedValue,
+    @Property String owner) {}

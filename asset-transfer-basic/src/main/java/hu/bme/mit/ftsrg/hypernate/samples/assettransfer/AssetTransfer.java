@@ -164,10 +164,10 @@ public class AssetTransfer implements HypernateContract {
       throw new ChaincodeException(errorMessage, AssetTransferErrors.ASSET_NOT_FOUND.toString());
     }
 
-    asset.setOwner(newOwner);
+    final Asset updatedAsset = asset.toBuilder().owner(newOwner).build();
 
-    reg.mustUpdate(asset);
-    return asset.getOwner();
+    reg.mustUpdate(updatedAsset);
+    return updatedAsset.owner();
   }
 
   @Transaction(intent = SUBMIT)
