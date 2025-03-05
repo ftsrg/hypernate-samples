@@ -9,7 +9,7 @@ import hu.bme.mit.ftsrg.hypernate.contract.HypernateContract;
 import hu.bme.mit.ftsrg.hypernate.registry.EntityExistsException;
 import hu.bme.mit.ftsrg.hypernate.registry.EntityNotFoundException;
 import hu.bme.mit.ftsrg.hypernate.registry.Registry;
-import java.util.List;
+import hu.bme.mit.ftsrg.hypernate.util.JSON;
 import org.hyperledger.fabric.contract.annotation.*;
 import org.hyperledger.fabric.shim.ChaincodeException;
 
@@ -82,8 +82,8 @@ public class AssetTransfer implements HypernateContract {
   }
 
   @Transaction(intent = EVALUATE)
-  public List<Asset> GetAllAssets(final HypernateContext ctx) {
-    return ctx.getRegistry().readAll(Asset.class);
+  public String GetAllAssets(final HypernateContext ctx) {
+    return JSON.serialize(ctx.getRegistry().readAll(Asset.class));
   }
 
   @Transaction(intent = SUBMIT)
