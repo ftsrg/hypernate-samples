@@ -15,8 +15,6 @@ orgs:
       - groupName: group1
         type: solo
         instances: 1
-    tools:
-      fabloRest: true
   - organization:
       name: Org1
       domain: org1.example.com
