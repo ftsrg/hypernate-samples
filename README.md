@@ -25,3 +25,36 @@ $ xh -A bearer -a $token :8801/invoke/channel1/asset-transfer-basic method=InitL
 > [!NOTE]
 > You can use your tool of choice to make these HTTP requests.
 > We are using [`xh`](https://github.com/ducaale/xh) and [`jq`](https://github.com/jqlang/jq).
+
+## Developers' Guide
+
+The preferred way of contribution is:
+
+1. Fork the repository;
+2. Create a branch with a meaningful name;
+3. Make your changes using [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/#summary);
+4. Push the branch to your fork;
+5. Create a pull request.
+
+## Referencing this work
+
+Please use the following information when you use or reference this project (or the related [research paper](https://doi.org/10.21203/rs.3.rs-4606405/v1)) in your own work:
+
+Text form:
+
+Damaris Jepkurui Kangogo, Bertalan Zoltán Péter, Attila Klenik, Imre Kocsis. _Practical runtime verification of cross-organizational smart contracts_, 11 July 2024, PREPRINT (Version 1) available at Research Square [https://doi.org/10.21203/rs.3.rs-4606405/v1]
+
+BibTeX:
+```
+@article{kangogo2024practical,
+  title={Practical runtime verification of cross-organizational smart contracts},
+  author={Kangogo, Damaris Jepkurui and P{\'e}ter, Bertalan Zolt{\'a}n and Klenik, Attila and Kocsis, Imre},
+  year={2024},
+  doi={https://dx.doi.org/10.21203/rs.3.rs-4606405/v1},
+  url={https://www.researchsquare.com/article/rs-4606405/latest}
+}
+```
+
+## License
+
+Hypernate samples use the *Apache License Version 2.0*. For more information see [NOTICES](NOTICES.md), [MAINTAINERS](MAINTAINERS.md), and [LICENSE](LICENSE).
