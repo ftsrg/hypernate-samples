@@ -6,7 +6,7 @@ Below is a table of active Hypernate samples maintainers.
 
 | Name | GitHub | Discord |
 |------|------|---------|
-| Bertalan Péter Zoltán | bzp99 |  |
+| Bertalan Zoltán Péter | bzp99 |  |
 | Attila Klenik | aklenik | klenik |
 
 
